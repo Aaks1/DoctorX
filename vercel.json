@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "DoctorX/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "DoctorX/wsgi.py"
+    }
+  ],
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "DoctorX.settings",
+    "VERCEL": "1",
+    "VERCEL_ENV": "production"
+  },
+  "functions": {
+    "DoctorX/wsgi.py": {
+      "runtime": "python3.9"
+    }
+  }
+}
