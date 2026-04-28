@@ -93,7 +93,7 @@ A comprehensive web-based appointment management system for Piki Ora Medical Cen
 
 7. **Access the application**
    - Home page: http://127.0.0.1:8000/
-   - Admin login: http://127.0.0.1:8000/admin/
+   - login: http://127.0.0.1:8000/login/
    - Patient registration: http://127.0.0.1:8000/register/
 
 ## 🏗 Project Structure
@@ -164,7 +164,7 @@ This is an internal project for Piki Ora Medical Centre. Please follow the clini
 ## 📞 Support
 
 For technical support or questions about the system, please contact the development team or Piki Ora Medical Centre administration.
-
+Email at - Navinaveenbisht5742@gmail.com
 ---
 
 **Piki Ora Medical Centre Appointment Management System**  
