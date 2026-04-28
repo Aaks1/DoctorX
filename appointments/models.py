@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import date
 
 class Appointment(models.Model):
     """Simple appointment model with database integrity"""
@@ -12,7 +13,7 @@ class Appointment(models.Model):
     
     patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='appointments')
     doctor = models.ForeignKey('doctors.Doctor', on_delete=models.CASCADE, related_name='patient_appointments')
-    date = models.DateField()
+    date = models.DateField(default=date.today)
     start_time = models.TimeField()
     end_time = models.TimeField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='BOOKED')

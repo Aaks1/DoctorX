@@ -5,7 +5,7 @@
       "src": "DoctorX/wsgi.py",
       "use": "@vercel/python",
       "config": {
-        "srcCommand": "python manage.py collectstatic --noinput"
+        "srcCommand": "python manage.py migrate && python manage.py collectstatic --noinput"
       }
     }
   ],
