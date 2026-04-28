@@ -3,10 +3,17 @@
   "builds": [
     {
       "src": "DoctorX/wsgi.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": {
+        "srcCommand": "python manage.py collectstatic --noinput"
+      }
     }
   ],
   "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
     {
       "src": "/(.*)",
       "dest": "DoctorX/wsgi.py"
