@@ -26,12 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-h%w_r)+r4_dp4$20+^cu=
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # For Vercel deployment - allow all hosts in production
-if os.environ.get('VERCEL') or os.environ.get('VERCEL_ENV'):
-    # Vercel environment
-    ALLOWED_HOSTS = ['*']
-else:
-    # Local development
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
+ALLOWED_HOSTS = ['*']  # Allow all hosts for Vercel deployment
 
 
 # Application definition
@@ -84,9 +79,15 @@ WSGI_APPLICATION = 'DoctorX.wsgi.application'
 
 import dj_database_url
 
-if os.environ.get('DATABASE_URL'):
+if os.environ.get('postgresql://neondb_owner:npg_VJ7ijkWR9gap@ep-dawn-sea-a72ebjzo-pooler.ap-southeast-2.aws.neon.tech/neondb?channel_binding=require&sslmode=require
+'):
     DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+        'default': dj_database_url.config(
+            default=os.environ.get('DATABASE_URL'),
+            conn_max_age=600,
+            conn_health_checks=True,
+
+        )
     }
 else:
     DATABASES = {
