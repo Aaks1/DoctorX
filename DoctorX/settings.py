@@ -79,8 +79,7 @@ WSGI_APPLICATION = 'DoctorX.wsgi.application'
 
 import dj_database_url
 
-if os.environ.get('postgresql://neondb_owner:npg_VJ7ijkWR9gap@ep-dawn-sea-a72ebjzo-pooler.ap-southeast-2.aws.neon.tech/neondb?channel_binding=require&sslmode=require
-'):
+if os.environ.get('DATABASE_URL'):
     DATABASES = {
         'default': dj_database_url.config(
             default=os.environ.get('DATABASE_URL'),
