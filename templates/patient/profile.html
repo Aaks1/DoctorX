@@ -1,0 +1,211 @@
+{% extends 'patient/base.html' %}
+
+{% block title %}My Profile - Piki Ora{% endblock %}
+
+{% block content %}
+    <!-- Page Header -->
+    <div class="mb-8">
+        <div class="flex items-center space-x-3">
+            <h1 class="text-3xl font-bold text-gray-900">My Profile</h1>
+        </div>
+        <p class="text-gray-600 mt-1">Manage your personal information</p>
+    </div>
+    
+    <!-- Profile Overview -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+        <!-- Profile Card -->
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="text-center">
+                    <div class="w-24 h-24 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl font-bold text-indigo-600">{{ patient.first_name.0|upper }}{{ patient.last_name.0|upper }}</span>
+                    </div>
+                    <h2 class="text-xl font-semibold text-gray-900">{{ patient.first_name }} {{ patient.last_name }}</h2>
+                    <p class="text-gray-600 mb-4">Patient</p>
+                    <div class="flex justify-center space-x-4 text-sm text-gray-500">
+                        <div class="flex items-center">
+                            <i class="fas fa-calendar-alt mr-1"></i>
+                            Joined {{ patient.created_at|date:"F Y" }}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stats -->
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-gray-900">{{ total_appointments }}</div>
+                            <div class="text-sm text-gray-500">Total Visits</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-gray-900">{{ upcoming_appointments }}</div>
+                            <div class="text-sm text-gray-500">Upcoming</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Personal Information -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Personal Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                        <div class="text-gray-900">{{ patient.first_name }}</div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                        <div class="text-gray-900">{{ patient.last_name }}</div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <div class="text-gray-900">{{ patient.email }}</div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                        <div class="text-gray-900">{{ patient.phone|default:"Not provided" }}</div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                        <div class="text-gray-900">{{ patient.date_of_birth|date:"F d, Y"|default:"Not provided" }}</div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                        <div class="text-gray-900">{{ patient.get_gender_display|default:"Not provided" }}</div>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                        <div class="text-gray-900">{{ patient.address|default:"Not provided" }}</div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Account Information</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                            <div class="text-gray-900">{{ user.username }}</div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Account Status</label>
+                            <div class="text-gray-900">
+                                {% if user.is_active %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                                {% else %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                        Inactive
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <a href="{% url 'patient:change_password' %}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center">
+                        <i class="fas fa-key mr-2"></i>Change Password
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recent Activity -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
+        <div class="space-y-4">
+            <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                <div class="p-2 bg-blue-100 rounded-full mr-4">
+                    <i class="fas fa-calendar-plus text-blue-600"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="text-sm font-medium text-gray-900">Account Created</div>
+                    <div class="text-sm text-gray-500">Your account was created on {{ patient.created_at|date:"F d, Y" }}</div>
+                </div>
+            </div>
+            
+            {% if upcoming_appointments > 0 %}
+            <div class="flex items-center p-4 bg-green-50 rounded-lg">
+                <div class="p-2 bg-green-100 rounded-full mr-4">
+                    <i class="fas fa-clock text-green-600"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="text-sm font-medium text-gray-900">Upcoming Appointments</div>
+                    <div class="text-sm text-gray-500">You have {{ upcoming_appointments }} appointment{{ upcoming_appointments|pluralize }} scheduled</div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="flex items-center p-4 bg-indigo-50 rounded-lg">
+                <div class="p-2 bg-indigo-100 rounded-full mr-4">
+                    <i class="fas fa-history text-indigo-600"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="text-sm font-medium text-gray-900">Total Appointments</div>
+                    <div class="text-sm text-gray-500">You've had {{ total_appointments }} appointment{{ total_appointments|pluralize }} in total</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- My Doctors Section -->
+    <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">My Doctors</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for doctor in my_doctors %}
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-3">
+                    {% if doctor.profile_picture %}
+                        <img src="{{ doctor.profile_picture.url }}" alt="{{ doctor.first_name }}" 
+                             class="w-12 h-12 rounded-full mr-3 object-cover">
+                    {% else %}
+                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-user-md text-gray-300"></i>
+                        </div>
+                    {% endif %}
+                    <div>
+                        <h4 class="text-sm font-medium text-gray-900">Dr. {{ doctor.first_name }} {{ doctor.last_name }}</h4>
+                        <p class="text-xs text-gray-500">{{ doctor.specialization }}</p>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex items-center text-xs text-gray-600">
+                        <i class="fas fa-hospital mr-2"></i>
+                        {{ doctor.experience_years }} years experience
+                    </div>
+                    <div class="flex items-center text-xs text-gray-600">
+                        <i class="fas fa-money-bill mr-2"></i>
+                        ${{ doctor.consultation_fee }} consultation fee
+                    </div>
+                    <div class="flex items-center text-xs text-gray-600">
+                        <i class="fas fa-phone mr-2"></i>
+                        {{ doctor.phone }}
+                    </div>
+                </div>
+                <div class="mt-3 pt-3 border-t border-gray-100">
+                    <a href="{% url 'patient:doctor_detail' doctor.id %}" 
+                       class="text-indigo-600 hover:text-indigo-800 text-xs font-medium">
+                        View Profile & Book
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full text-center py-8">
+                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user-md text-gray-300 text-2xl"></i>
+                </div>
+                <p class="text-gray-500">You haven't booked any appointments yet</p>
+                <a href="{% url 'accounts:patient_dashboard' %}" 
+                   class="text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-2 inline-block">
+                    Browse Doctors
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

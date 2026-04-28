@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Piki Ora</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+<body class="bg-gray-50">
+
+<!-- NAVBAR -->
+<header class="sticky-nav border-b border-gray-200 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      
+      <!-- Logo -->
+      <div class="flex items-center">
+        <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+          <i class="fas fa-user-md mr-2 text-indigo-600"></i>
+          Doctor<span class="text-indigo-600">X</span>
+        </h2>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="hidden md:flex space-x-8">
+        <a href="{% url 'home' %}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+          Home
+        </a>
+        <a href="{% url 'accounts:register' %}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+          Register
+        </a>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <a href="{% url 'accounts:register' %}" class="text-indigo-600 px-4 py-2 rounded-lg text-sm font-medium border border-indigo-200">
+          <i class="fas fa-user-plus mr-2"></i>
+          Register
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- LOGIN SECTION -->
+<section class="min-h-screen py-12 lg:py-20">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl mb-6">
+        <i class="fas fa-sign-in-alt text-3xl text-indigo-600"></i>
+      </div>
+      <h1 class="text-4xl font-light text-gray-900 mb-4">Welcome back</h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Sign in to your Piki Ora account and continue your healthcare journey with our caring professionals.
+      </p>
+    </div>
+
+    <!-- Login Form -->
+    <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+      <form method="post" class="space-y-8 p-8 lg:p-12">
+        {% csrf_token %}
+        
+        <!-- Error Messages -->
+        {% if messages %}
+          {% for message in messages %}
+            <div class="bg-red-50 border border-red-200 rounded-xl p-4">
+              <div class="flex items-center">
+                <i class="fas fa-exclamation-triangle text-red-500 mr-3"></i>
+                <div class="text-red-700">
+                  <p class="text-sm">{{ message }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+        
+        <!-- Login Information -->
+        <div class="space-y-6">
+          <h3 class="text-xl font-medium text-gray-900 flex items-center">
+            <i class="fas fa-lock mr-3 text-indigo-600"></i>
+            Login Information
+          </h3>
+          
+          <div class="space-y-6">
+            <div>
+              <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
+                Username <span class="text-red-500">*</span>
+              </label>
+              <input type="text" id="username" name="username" required
+                     class="form-input w-full" placeholder="Enter your username" autocomplete="username">
+            </div>
+            
+            <div>
+              <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                Password <span class="text-red-500">*</span>
+              </label>
+              <input type="password" id="password" name="password" required
+                     class="form-input w-full" placeholder="Enter your password" autocomplete="current-password">
+            </div>
+          </div>
+        </div>
+
+        <!-- Remember Me -->
+        <div class="flex items-center">
+          <input type="checkbox" id="remember-me" name="remember-me" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+          <label for="remember-me" class="ml-3 text-sm text-gray-600">
+            Remember me for 30 days
+          </label>
+        </div>
+        
+        <!-- Submit Button -->
+        <div class="flex flex-col sm:flex-row gap-4">
+          <button type="submit" class="btn-primary-custom flex-1">
+            <i class="fas fa-sign-in-alt mr-2"></i>
+            Sign In
+          </button>
+          
+          <a href="{% url 'accounts:register' %}" class="bg-white text-gray-700 px-6 py-3 rounded-xl font-medium inline-flex items-center border border-gray-200 hover:bg-gray-50 transition-all">
+            <i class="fas fa-user-plus mr-2"></i>
+            New to Piki Ora?
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

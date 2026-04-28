@@ -1,0 +1,94 @@
+{% extends 'patient/base.html' %}
+
+{% block title %}Find Doctors - Piki Ora{% endblock %}
+
+{% block content %}
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Find Doctors</h1>
+        <p class="text-gray-600">Browse and book appointments with our experienced medical professionals</p>
+    </div>
+
+    <!-- Specialization Filter -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Filter by Specialization</h2>
+        <div class="flex flex-wrap gap-2">
+            <a href="{% url 'patient:doctors' %}" class="px-4 py-2 {% if not specialization_filter %}bg-indigo-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %} rounded-lg text-sm font-medium transition-colors">
+                All Specializations
+            </a>
+            {% for spec in specializations %}
+            <a href="?specialization={{ spec }}" class="px-4 py-2 {% if specialization_filter == spec %}bg-indigo-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %} rounded-lg text-sm font-medium transition-colors">
+                {{ spec }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Doctors Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for doctor in doctors %}
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+            <div class="p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
+                        {% if doctor.profile_picture %}
+                            <img src="{{ doctor.profile_picture.url }}" alt="{{ doctor.first_name }}" 
+                                 class="w-16 h-16 rounded-full object-cover">
+                        {% else %}
+                            <i class="fas fa-user-md text-gray-400 text-2xl"></i>
+                        {% endif %}
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="font-semibold text-gray-900">Dr. {{ doctor.first_name }} {{ doctor.last_name }}</h3>
+                        <p class="text-sm text-gray-600">{{ doctor.specialization }}</p>
+                        <p class="text-xs text-gray-500">{{ doctor.experience_years|default:0 }} years experience</p>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600 line-clamp-3">{{ doctor.bio|default:"Experienced medical professional dedicated to providing quality healthcare services." }}</p>
+                </div>
+                
+                <div class="flex items-center justify-between mb-4">
+                    <div class="text-sm text-gray-500">
+                        <i class="fas fa-hospital-alt mr-1"></i>
+                        {{ doctor.department|default:"Medical Center" }}
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        <i class="fas fa-graduation-cap mr-1"></i>
+                        {{ doctor.qualification|default:"Medical Degree" }}
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {% if doctor.is_active %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">
+                        {% if doctor.is_active %}Available{% else %}Unavailable{% endif %}
+                    </span>
+                    <a href="{% url 'patient:doctor_detail' doctor.id %}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full">
+            <div class="text-center py-12">
+                <i class="fas fa-user-md text-gray-300 text-6xl mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">No Doctors Found</h3>
+                <p class="text-gray-500 mb-4">No doctors match your current filter criteria.</p>
+                <a href="{% url 'patient:doctors' %}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                    Clear Filters
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not doctors %}
+    <div class="text-center py-12">
+        <i class="fas fa-search text-gray-300 text-6xl mb-4"></i>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">No Doctors Available</h3>
+        <p class="text-gray-500">There are no doctors available at the moment. Please check back later.</p>
+    </div>
+    {% endif %}
+{% endblock %}
