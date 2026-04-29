@@ -230,13 +230,11 @@ def admin_create(request):
                 return redirect('admin_dashboard')
             except Exception as e:
                 messages.error(request, f'Error creating admin: {str(e)}')
-                print(f"Admin creation error: {e}")
         else:
             # Form is not valid, show errors
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f'{field}: {error}')
-            print(f"Form errors: {form.errors}")
     else:
         form = AdminUserForm()
     
@@ -343,10 +341,10 @@ def doctor_create(request):
             messages.success(request, f'Dr. {doctor.first_name} {doctor.last_name} created successfully!')
             return redirect('admin_dashboard')
         else:
-            # Debug: Print form errors
-            print("Form errors:", form.errors)
+            # Form is not valid, show errors
             for field, errors in form.errors.items():
-                print(f"Field {field}: {errors}")
+                for error in errors:
+                    messages.error(request, f'{field}: {error}')
     else:
         form = DoctorForm()
     
