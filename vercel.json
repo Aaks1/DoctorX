@@ -26,23 +26,25 @@
   ],
   "env": {
     "DJANGO_SETTINGS_MODULE": "DoctorX.settings",
-    "USE_NEON": "true",
     "PYTHONPATH": "/vercel/path0",
     "DATABASE_URL": "postgresql://neondb_owner:npg_T0YBXCPNQ3Hk@ep-misty-surf-a7k9k9ds-pooler.ap-southeast-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require",
     "SECRET_KEY": "django-insecure-h%w_r)+r4_dp4$20+^cu=70k$miegazaf44dwr*t2_hfsk3m+q",
-    "DEBUG": "false"
+    "DEBUG": "false",
+    "ALLOWED_HOSTS": "*.vercel.app,doctorx-doctoraaks1.vercel.app",
+    "CSRF_TRUSTED_ORIGINS": "https://*.vercel.app,https://doctorx-doctoraaks1.vercel.app"
   },
   "build": {
     "env": {
       "DJANGO_SETTINGS_MODULE": "DoctorX.settings",
-      "USE_NEON": "true",
       "PYTHONPATH": "/vercel/path0",
       "DATABASE_URL": "postgresql://neondb_owner:npg_T0YBXCPNQ3Hk@ep-misty-surf-a7k9k9ds-pooler.ap-southeast-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require",
       "SECRET_KEY": "django-insecure-h%w_r)+r4_dp4$20+^cu=70k$miegazaf44dwr*t2_hfsk3m+q",
-      "DEBUG": "false"
+      "DEBUG": "false",
+      "ALLOWED_HOSTS": "*.vercel.app,doctorx-doctoraaks1.vercel.app",
+      "CSRF_TRUSTED_ORIGINS": "https://*.vercel.app,https://doctorx-doctoraaks1.vercel.app"
     }
   },
   "installCommand": "pip install -r requirements.txt",
-  "buildCommand": "python manage.py migrate",
+  "buildCommand": "python manage.py migrate && python manage.py collectstatic --noinput",
   "outputDirectory": "staticfiles"
 }

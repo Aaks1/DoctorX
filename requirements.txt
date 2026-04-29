@@ -4,3 +4,4 @@ django-crispy-forms>=2.0
 crispy-bootstrap5>=0.7
 psycopg2-binary>=2.9.0
 dj-database-url>=3.1.0
+whitenoise>=6.0.0
