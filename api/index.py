@@ -16,9 +16,12 @@ django.setup()
 # Import WSGI application
 from django.core.wsgi import get_wsgi_application
 
-# Export the WSGI application for Vercel
-app = get_wsgi_application()
+# Vercel handler - must be at top level
+def handler(environ, start_response):
+    """Vercel serverless function handler"""
+    wsgi_app = get_wsgi_application()
+    return wsgi_app(environ, start_response)
 
-# Vercel expects the handler to be named 'handler' or 'application'
-handler = app
-application = app
+# Alternative names for compatibility
+app = handler
+application = handler
