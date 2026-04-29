@@ -30,7 +30,7 @@
     "PYTHONPATH": "/vercel/path0",
     "DATABASE_URL": "postgresql://neondb_owner:npg_T0YBXCPNQ3Hk@ep-misty-surf-a7k9k9ds-pooler.ap-southeast-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require",
     "SECRET_KEY": "django-insecure-h%w_r)+r4_dp4$20+^cu=70k$miegazaf44dwr*t2_hfsk3m+q",
-    "DEBUG": "false"
+    "DEBUG": "true"
   },
   "build": {
     "env": {
@@ -39,7 +39,7 @@
       "PYTHONPATH": "/vercel/path0",
       "DATABASE_URL": "postgresql://neondb_owner:npg_T0YBXCPNQ3Hk@ep-misty-surf-a7k9k9ds-pooler.ap-southeast-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require",
       "SECRET_KEY": "django-insecure-h%w_r)+r4_dp4$20+^cu=70k$miegazaf44dwr*t2_hfsk3m+q",
-      "DEBUG": "false"
+      "DEBUG": "true"
     }
   },
   "installCommand": "pip install -r requirements.txt",
