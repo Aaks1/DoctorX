@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-h%w_r)+r4_dp4$20+^cu=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'pakkiora.vercel.app', '.vercel.app', '*.vercel.app', 'pakkiora-hcg6learg-aaks1s-projects.vercel.app', 'pakkiora-9cc2ppjus-aaks1s-projects.vercel.app', '*-aaks1s-projects.vercel.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -73,22 +73,12 @@ WSGI_APPLICATION = 'DoctorX.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# Dual Database Configuration - Neon for Production, SQLite for Development
-import dj_database_url
-
-if os.environ.get('USE_NEON') == 'true':
-    # Use Neon PostgreSQL for production
-    DATABASES = {
-        'default': dj_database_url.parse('postgresql://neondb_owner:npg_T0YBXCPNQ3Hk@ep-misty-surf-a7k9k9ds-pooler.ap-southeast-2.aws.neon.tech/neondb?channel_binding=require&sslmode=require')
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    # Use SQLite for development
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
