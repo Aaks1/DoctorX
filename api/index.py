@@ -9,10 +9,6 @@ sys.path.insert(0, project_root)
 # Set Django settings module
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DoctorX.settings')
 
-# Load Django
-import django
-django.setup()
-
 # Import WSGI application
 from django.core.wsgi import get_wsgi_application
 
