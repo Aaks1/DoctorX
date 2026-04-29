@@ -84,6 +84,7 @@ DATABASES = {
         default=os.environ.get('DATABASE_URL', 'postgresql://neondb_owner:npg_T0YBXCPNQ3Hk@ep-misty-surf-a7k9k9ds-pooler.ap-southeast-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require'),
         conn_max_age=0,
         ssl_require=True,
+        options={'connect_timeout': 10}
     )
 }
 
