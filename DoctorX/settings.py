@@ -25,8 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-h%w_r)+r4_dp4$20+^cu=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-# Configure allowed hosts for production
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',') if os.environ.get('ALLOWED_HOSTS') else ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -131,22 +130,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-# For Vercel deployment
-if os.environ.get('VERCEL'):
-    STATIC_ROOT = BASE_DIR / 'staticfiles'
-else:
-    STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# Add whitenoise for static files serving
-MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-] + MIDDLEWARE
-
-# WhiteNoise configuration for production
-if not DEBUG:
-    WHITENOISE_USE_FINDERS = True
-    WHITENOISE_COMPRESS_ALL = True
-    WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/6.0/ref/settings/#default-auto-field
