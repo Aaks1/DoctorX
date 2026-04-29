@@ -11,11 +11,11 @@ class Appointment(models.Model):
         ('NO_SHOW', 'No Show'),
     ]
     
-    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='appointments')
-    doctor = models.ForeignKey('doctors.Doctor', on_delete=models.CASCADE, related_name='patient_appointments')
+    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='appointments', null=True, blank=True)
+    doctor = models.ForeignKey('doctors.Doctor', on_delete=models.CASCADE, related_name='patient_appointments', null=True, blank=True)
     date = models.DateField(default=date.today)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+    start_time = models.TimeField(null=True, blank=True)
+    end_time = models.TimeField(null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='BOOKED')
     symptoms = models.TextField(blank=True, help_text="Patient symptoms/reason for visit")
     notes = models.TextField(blank=True, help_text="Doctor notes after consultation")
