@@ -9,21 +9,16 @@ sys.path.insert(0, project_root)
 # Set Django settings module
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DoctorX.settings')
 
-try:
-    # Load Django
-    import django
-    django.setup()
-    
-    # Import WSGI application
-    from django.core.wsgi import get_wsgi_application
-    
-    # Export the WSGI application for Vercel
-    application = get_wsgi_application()
-    
-except Exception as e:
-    # Create a minimal WSGI app for error handling
-    def application(environ, start_response):
-        status = '500 Internal Server Error'
-        headers = [('Content-Type', 'text/plain')]
-        start_response(status, headers)
-        return [b"Django setup failed"]
+# Load Django
+import django
+django.setup()
+
+# Import WSGI application
+from django.core.wsgi import get_wsgi_application
+
+# Export the WSGI application for Vercel
+app = get_wsgi_application()
+
+# Vercel expects the handler to be named 'handler' or 'application'
+handler = app
+application = app
