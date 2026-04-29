@@ -27,7 +27,7 @@ class UserProfile(models.Model):
 
 
 class Doctor(models.Model):
-    """Doctor model managed by admins"""
+    """Doctor model managed by admins - linked to User"""
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='doctor_profile')
     specialization = models.CharField(max_length=100)
     qualification = models.CharField(max_length=200)
