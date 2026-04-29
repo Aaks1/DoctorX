@@ -38,10 +38,3 @@ dependencies = [
 Homepage = "https://github.com/Aaks1/pakkiora"
 Repository = "https://github.com/Aaks1/pakkiora.git"
 Issues = "https://github.com/Aaks1/pakkiora/issues"
-
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["DoctorX*", "accounts*", "doctors*", "appointments*"]
-
-[tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
