@@ -1,0 +1,284 @@
+:root{
+    --glass: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.18);
+    --text: #f5f7fa;
+}
+
+/* reset */
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:'Inter',sans-serif;
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* watery background */
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1600') center/cover;
+    filter: blur(2px) brightness(0.7);
+    z-index:-2;
+}
+
+/* moving light ripple */
+body::after{
+    content:'';
+    position:fixed;
+    inset:0;
+    background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.08), transparent 60%);
+    animation: ripple 12s infinite alternate ease-in-out;
+    z-index:-1;
+}
+
+@keyframes ripple{
+    0%{transform:translate(0,0);}
+    50%{transform:translate(40px, -30px);}
+    100%{transform:translate(-30px, 20px);}
+}
+
+/* navbar */
+.navbar{
+    position:fixed;
+    width:100%;
+    padding:0.8rem 1rem;
+    backdrop-filter:blur(15px);
+    background:var(--glass);
+    border-bottom:1px solid var(--border);
+}
+
+.navbar-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-family:'Playfair Display';
+    font-size:1.4rem;
+    letter-spacing:0.5px;
+    text-decoration:none;
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    gap:0.5rem;
+}
+
+.nav a{
+    margin-left:1.5rem;
+    text-decoration:none;
+    color:var(--text);
+    font-size:0.85rem;
+    transition:opacity 0.3s ease;
+}
+
+.nav a:hover{
+    opacity:0.8;
+}
+
+/* hero */
+.hero{
+    padding:110px 1.5rem 3rem;
+}
+
+.hero-wrap{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr; /* slight imbalance */
+    gap:2.5rem;
+}
+
+/* glass cards */
+.card{
+    background:var(--glass);
+    border:1px solid var(--border);
+    backdrop-filter:blur(20px);
+    border-radius:18px;
+    padding:1.8rem;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+}
+
+/* hero text */
+.hero h1{
+    font-family:'Playfair Display';
+    font-size:2.3rem;
+    margin-bottom:0.8rem;
+}
+
+.hero p{
+    font-size:0.9rem;
+    opacity:0.9;
+    margin-bottom:1.6rem;
+}
+
+/* buttons (not perfect alignment intentionally) */
+.btn{
+    padding:0.6rem 1.4rem;
+    border-radius:20px;
+    text-decoration:none;
+    font-size:0.85rem;
+    border:1px solid var(--border);
+    margin-right:0.7rem;
+    background:var(--glass);
+    backdrop-filter:blur(10px);
+    color:var(--text);
+    transition:all 0.3s ease;
+}
+
+.btn:hover{
+    background:rgba(255,255,255,0.1);
+    transform:translateY(-2px);
+}
+
+/* image */
+.hero img{
+    width:100%;
+    border-radius:14px;
+}
+
+/* services */
+.section{
+    padding:3.5rem 1.5rem;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:1.8rem;
+    margin-top:2rem;
+}
+
+/* slight uneven card padding (intentional imperfection) */
+.grid .card:nth-child(2){
+    padding:2rem 1.5rem;
+}
+
+/* headings */
+h2{
+    font-family:'Playfair Display';
+    font-size:1.6rem;
+    margin-bottom:0.4rem;
+    color:var(--text);
+}
+
+h3{
+    font-family:'Playfair Display';
+    font-size:1.1rem;
+    margin-bottom:0.5rem;
+    color:var(--text);
+}
+
+.small{
+    font-size:0.85rem;
+    opacity:0.7;
+}
+
+/* Medical Gallery */
+.medical-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.medical-image {
+    width: 100%;
+    height: 120px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.medical-image:hover {
+    transform: scale(1.05);
+}
+
+.medical-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.medical-image:hover img {
+    opacity: 1;
+}
+
+/* Service Icons */
+.grid .card i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color:var(--text);
+    opacity:0.9;
+}
+
+/* Form Styles */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    color: var(--text);
+    backdrop-filter: blur(10px);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.08);
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Form Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+/* mobile */
+@media(max-width:768px){
+    .hero-wrap{grid-template-columns:1fr;}
+    .nav{display:none;}
+    .medical-gallery {
+        grid-template-columns: 1fr;
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}

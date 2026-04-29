@@ -131,12 +131,22 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# For Vercel deployment
+if os.environ.get('VERCEL'):
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+else:
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Add whitenoise for static files serving
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ] + MIDDLEWARE
+
+# WhiteNoise configuration for production
+if not DEBUG:
+    WHITENOISE_USE_FINDERS = True
+    WHITENOISE_COMPRESS_ALL = True
+    WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/6.0/ref/settings/#default-auto-field
